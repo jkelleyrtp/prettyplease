@@ -387,7 +387,7 @@ pub fn unparse_expr(expr: &syn::Expr) -> String {
 /// Pretty print a `proc_macro2::TokenStream` as an expression or a file.
 pub trait PrettyUnparse {
     fn pretty_unparse_file(&self) -> String;
-    fn pretty_unparse_expr(&self) -> String;
+    fn pretty_unparse(&self) -> String;
 }
 
 impl PrettyUnparse for proc_macro2::TokenStream {
@@ -395,7 +395,7 @@ impl PrettyUnparse for proc_macro2::TokenStream {
         let parsed = syn::parse2::<syn::File>(self.clone()).unwrap();
         unparse(&parsed)
     }
-    fn pretty_unparse_expr(&self) -> String {
+    fn pretty_unparse(&self) -> String {
         let parsed = syn::parse2::<syn::Expr>(self.clone()).unwrap();
         unparse_expr(&parsed)
     }
