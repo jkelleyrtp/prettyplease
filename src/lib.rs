@@ -385,11 +385,13 @@ pub fn unparse_expr(expr: &syn::Expr) -> String {
 }
 
 /// Pretty print a `proc_macro2::TokenStream` as an expression or a file.
+#[cfg(feature = "verbatim")]
 pub trait PrettyUnparse {
     fn pretty_unparse_file(&self) -> String;
     fn pretty_unparse(&self) -> String;
 }
 
+#[cfg(feature = "verbatim")]
 impl PrettyUnparse for proc_macro2::TokenStream {
     fn pretty_unparse_file(&self) -> String {
         let parsed = syn::parse2::<syn::File>(self.clone()).unwrap();
